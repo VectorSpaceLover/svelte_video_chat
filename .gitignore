@@ -1,0 +1,7 @@
+data/
+configs/web/siphone.ts
+configs/web/values.ts
+configs/api/default.json
+api/
+web/
+.env

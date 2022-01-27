@@ -1,0 +1,42 @@
+version: "2"
+services:
+
+  api:
+    image: ${API_IMAGE}
+    container_name: ${API_CONTAINER}
+    build:
+      context: ./api
+    restart: always
+    networks:
+      - webroot_default
+      - default
+#    volumes:
+#      - ./api/config:/app/config
+
+  db:
+     image: ${DB_IMAGE}
+     container_name: ${DB_CONTAINER}
+     restart: always
+     networks:
+       - default
+     volumes:
+      - ./data/db:/data/db
+      - ./data/configdb:/data/configdb
+
+  web:
+    image: ${WEB_IMAGE}
+    container_name: ${WEB_CONTAINER}
+    build:
+      context: ./web
+#    restart: always
+    networks:
+      - webroot_default
+      - default
+    volumes:
+      - ./data/sessions:/app/.sessions
+
+networks:
+  webroot_default:
+    external: true
+  default:
+    external: false
